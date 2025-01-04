@@ -59,6 +59,7 @@ async function fetchAccessToken(info) {
 
 
 const uri = `mongodb+srv://cedarlarson:${process.env.db_password}@bubbles.qn6sb.mongodb.net/?retryWrites=true&w=majority&appName=Bubbles`;
+const dbName = "ActivitiesJ";
 let client;
 
 // Middleware to ensure MongoDB client is connected
@@ -76,7 +77,6 @@ app.use(connectToMongoDB);
 // Connect to MongoDB and fetch an activity
 app.post('/queryDB', async (req, res) => {
   try {
-    const dbName = "Activities";
     const collectionName = req.body.year;
 
     const db = client.db(dbName);
@@ -95,7 +95,6 @@ app.post('/queryDB', async (req, res) => {
 // Connect to MongoDB and insert an activity
 app.post('/sendDB', async (req, res) => {
   try {
-    const dbName = "Activities";
     const db = client.db(dbName);
     for (let act of req.body.activity) {
       const collectionName = act.start_date.slice(0,4);
@@ -121,7 +120,6 @@ app.post('/sendDB', async (req, res) => {
 
 app.post('/ultimateDB', async (req, res) => {
   try {
-    const dbName = "Activities";
     const db = client.db(dbName);
 
     const collections = await db.listCollections({}).toArray();
