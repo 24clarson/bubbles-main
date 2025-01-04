@@ -136,7 +136,7 @@ function processActivities(acts) {
 ----Strava Authentication----
 ---------------------------*/
 
-const clientId = '142021';
+const clientId = '144350';
 const redirectUriAll = 'https://bubbles-vyp2.onrender.com/?timeframe=all';
 const redirectUriRecent = 'https://bubbles-vyp2.onrender.com/?timeframe=recent';
 const authUrlAll = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriAll}&scope=activity:read_all,read_all&approval_prompt=auto`;
