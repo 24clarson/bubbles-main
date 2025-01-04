@@ -59,7 +59,7 @@ async function fetchAccessToken(info) {
 
 
 const uri = `mongodb+srv://cedarlarson:${process.env.db_password}@bubbles.qn6sb.mongodb.net/?retryWrites=true&w=majority&appName=Bubbles`;
-const dbName = "ActivitiesJ";
+const dbName = process.env.db_name;
 let client;
 
 // Middleware to ensure MongoDB client is connected
