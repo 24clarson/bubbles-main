@@ -137,8 +137,8 @@ function processActivities(acts) {
 ---------------------------*/
 
 const clientId = '142021';
-const redirectUriAll = 'http://localhost:3000/?timeframe=all';
-const redirectUriRecent = 'http://localhost:3000/?timeframe=recent';
+const redirectUriAll = 'https://bubbles-vyp2.onrender.com/?timeframe=all';
+const redirectUriRecent = 'https://bubbles-vyp2.onrender.com/?timeframe=recent';
 const authUrlAll = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriAll}&scope=activity:read_all,read_all&approval_prompt=auto`;
 const authUrlRecent = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriRecent}&scope=activity:read_all,read_all&approval_prompt=auto`;
 
