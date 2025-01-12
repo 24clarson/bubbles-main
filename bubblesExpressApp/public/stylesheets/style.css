@@ -47,6 +47,10 @@ body {
   margin-left: auto;
 }
 
+#recent {
+  margin-left: auto;
+}
+
 .sidebar {
   width: 15vw;
   height: 90vh;
