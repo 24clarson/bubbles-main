@@ -11,20 +11,31 @@
 
 <body>
     <div class="banner">
-        <h1>Bubbles</h1>
+        <h1><a class="app-name" href='/'>Bubbles</a></h1>
         <button onclick="requestActivitiesDB()" class="auth" id="loadDB">Load Activities</button>
+        <a id="early" class="auth">Sync Early</a>
         <a id="recent" class="auth">Sync Recent</a>
         <a id="all" class="auth">Sync All</a>
     </div>
     <div class="sidebar">
         <h2>Year</h2>
-        <select id="year-select" size="25"></select>
+        <ul id="year-select"></ul>
+        <div class="sync-specific-container">
+            <input type="date" id="pick-date">
+            <a id="specific" class="auth">Sync Date</a>
+        </div>
     </div>
 
     <div class="calendar-header">
         <h1 id="calendar-title">2024</h1>
         <div class="weekdays">
-            <div class="day-name">Week</div>
+            <select id="type-select">
+                <option selected>All</option>
+                <option>Run</option>
+                <option>Walk</option>
+                <option>Elliptical</option>
+                <option>Swim</option>
+            </select>
             <div class="day-name">Mon</div>
             <div class="day-name">Tue</div>
             <div class="day-name">Wed</div>
@@ -35,13 +46,21 @@
         </div>
     </div>
 
+    <div id="popup">
+        <h3 id="popup-title"></h3>
+        <div id="activity-content">
+            <p id="popup-description"></p>
+        </div>
+    </div>
+
     <main class="content">
         <div class="calendar">
             <div id="calendar-days"></div>
         </div>
     </main>
 
-  <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <script src="/javascripts/index.js"></script>
 </body>
 
 </html>

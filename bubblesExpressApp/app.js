@@ -4,15 +4,19 @@ const app = express();
 const path = require('path');
 const { MongoClient } = require('mongodb');
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 app.use(express.static( path.join(__dirname, 'public')))
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'))
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.render('index');
+})
+
+app.get('/activities', (req, res) => {
+  res.render('activities');
 })
 
 app.listen(port,() => {
@@ -57,9 +61,9 @@ async function fetchAccessToken(info) {
   }
 }
 
-
-const uri = `mongodb+srv://cedarlarson:${process.env.db_password}@bubbles.qn6sb.mongodb.net/?retryWrites=true&w=majority&appName=Bubbles`;
+const dbpw = process.env.db_password;
 let client;
+const dbName = process.env.db_name;
 
 // Middleware to ensure MongoDB client is connected
 async function connectToMongoDB(req, res, next) {
@@ -73,16 +77,15 @@ async function connectToMongoDB(req, res, next) {
 
 app.use(connectToMongoDB);
 
-// Connect to MongoDB and fetch an activity
+// Connect to MongoDB and fetch all activities from a year
 app.post('/queryDB', async (req, res) => {
   try {
-    const dbName = "Activities";
     const collectionName = req.body.year;
 
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
 
-    const result = await collection.find({}).toArray();
+    const result = await collection.find().project({id: 1, name: 1, distance: 1, start_date_local: 1, moving_time: 1, type: 1, description: 1, workout_type: 1}).toArray();
     res.json(result);
 
   } catch (err) {
@@ -95,10 +98,9 @@ app.post('/queryDB', async (req, res) => {
 // Connect to MongoDB and insert an activity
 app.post('/sendDB', async (req, res) => {
   try {
-    const dbName = "Activities";
     const db = client.db(dbName);
     for (let act of req.body.activity) {
-      const collectionName = act.start_date.slice(0,4);
+      const collectionName = act.start_date_local.slice(0,4);
       const collections = await db.listCollections({ name: collectionName }).toArray();
       if (collections.length == 0) {
           await db.createCollection(collectionName);
@@ -108,7 +110,10 @@ app.post('/sendDB', async (req, res) => {
 
       const duplicates = await collection.find({id: act.id}).toArray();
       if (duplicates.length == 0) {
-        const result = await collection.insertOne(act);
+        await collection.insertOne(act);
+      } else if (req.body.overwrite) {
+        await collection.deleteOne({id: act.id})
+        await collection.insertOne(act);
       }
     }
     
@@ -121,7 +126,6 @@ app.post('/sendDB', async (req, res) => {
 
 app.post('/ultimateDB', async (req, res) => {
   try {
-    const dbName = "Activities";
     const db = client.db(dbName);
 
     const collections = await db.listCollections({}).toArray();
@@ -132,6 +136,44 @@ app.post('/ultimateDB', async (req, res) => {
     const mostrecent = result.map(obj => obj.start_date).sort().pop();
     res.json(mostrecent);
 
+  } catch (err) {
+    console.error('Error fetching activity:', err);
+  } finally {
+    // await client.close();
+  }
+});
+
+app.post('/earliestDB', async (req, res) => {
+  try {
+    const db = client.db(dbName);
+
+    const collections = await db.listCollections({}).toArray();
+    const minCollection = collections.map(obj => obj.name).sort()[0];
+    const collection = db.collection(minCollection);
+
+    const result = await collection.find({}).toArray();
+    const leastrecent = result.map(obj => obj.start_date).sort()[0];
+    res.json(leastrecent);
+
+  } catch (err) {
+    console.error('Error fetching activity:', err);
+  } finally {
+    // await client.close();
+  }
+});
+
+app.post('/singleDB', async (req, res) => {
+  try {
+    const db = client.db(dbName);
+    const collections = await db.listCollections({}).toArray();
+    for (let col of collections) {
+      const collection = db.collection(col.name);
+      const result = await collection.find({id: parseInt(req.body.id)}).toArray();
+      if (result.length > 0) {
+        res.json(result[0]);
+        break;
+      }
+    }
   } catch (err) {
     console.error('Error fetching activity:', err);
   } finally {

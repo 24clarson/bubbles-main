@@ -1,11 +1,13 @@
 * {
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-html, body {
+body {
   display: block;
   padding: 0;
   margin: 0;
+  overflow-y: scroll;
 }
 
 body {
@@ -25,6 +27,11 @@ body {
   color: white;
   font-size: 2vh;
   position: fixed;
+}
+
+.app-name {
+  color: white;
+  text-decoration: none;
 }
 
 .auth {
@@ -52,26 +59,29 @@ body {
 }
 
 #year-select {
-  width: 100%;
+  width: 50px;
   padding: 5px;
   margin-bottom: 15px;
   outline: none;
   border: 0;
-  background-color: transparent;
-  overflow: hidden;
+  /* background-color: pink; */
   font-size: 15px;
+  cursor: pointer;
+  list-style-type: none;
 }
 
-option:checked {
-  font-weight: bold;
-  background-color: transparent;
-  color: black;
+.sync-specific-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
 }
 
 .calendar-header {
   position: fixed;
   top: 10vh;
-  background-color: lightblue;
+  background-color: lightgrey;
   width: 80vw;
   height: 15vh;
   display: flex;
@@ -95,7 +105,6 @@ option:checked {
 .day-name {
   font-weight: bold;
   text-align: center;
-  background-color: lightgrey;
   padding: 10px;
 }
 
@@ -104,7 +113,7 @@ option:checked {
   flex-direction: column;
   align-items: center;
   width: 80vw;
-  background-color: lightpink;
+  /* background-color: lightpink; */
   margin-top: 25vh;
   padding: 0 10px;
 }
@@ -113,17 +122,10 @@ option:checked {
   width: 100%;
 }
 
-.big {
-  width: 100px;
-  height: 100px;
-  background-color: blue;
-  margin: 10px;
-}
-
 #calendar-days {
   display: flex;
   flex-direction: column;
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
 }
 
 .week {
@@ -132,28 +134,66 @@ option:checked {
   gap: 5px;
   width: 100%;
   margin: 5px auto;
+  border-bottom: 1px solid lightgrey;
 }
 
 .day {
   padding: 10px;
   margin: 0;
-  background-color: lightgoldenrodyellow;
+  /* background-color: lightgoldenrodyellow; */
   display: flex;
   flex-direction: column;
-  gap: 30px;
   align-items: center;
-  justify-content: center;
+  justify-content: top;
   min-height: 100px;
 }
 
+.day h1 {
+  margin-top: 25px;
+  color: lightgrey;
+  font-size: 16px;
+  font-weight: normal;
+}
+
 .spacer {
-  padding: 10px;
+  padding: 50px 10px 10px 10px;
+  margin: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: lightcyan;
+  justify-content: top;
+  /* background-color: lightcyan; */
   color: black;
+}
+
+.week-title {
   font-weight: bold;
+}
+
+.week-miles {
+  font-weight: normal;
+}
+
+.bubble-container {
+  /* background-color: lightpink; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  cursor: pointer;
+}
+
+.bubble-container p {
+  font-size: 10px;
+  margin-top: 8px;
+  padding: 0;
+  color: darkslategrey;
+  font-weight: 400;
+}
+
+.bubble-container:hover p {
+  text-decoration: underline;
 }
 
 .bubble {
@@ -163,4 +203,60 @@ option:checked {
   justify-content: center;
   font-size: 0.75rem;
   font-weight: bold;
+  aspect-ratio: 1/1;
+}
+
+#popup {
+  display: none;
+  background-color: white;
+  color: black;
+  position: absolute;
+  border: 2px solid grey;
+  border-radius: 2px;
+  padding: 5px;
+  width: 20vw;
+}
+
+#popup-title {
+  font-size: 16px;
+  margin: 5px 0;
+  padding: 2px;
+}
+
+#popup p {
+  font-size: 12px;
+  max-height: 100px;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 2px;
+}
+
+.activity-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60vw;
+  background-color: lightgrey;
+  margin: 15vh auto 0 auto;
+  padding: 30px;
+}
+
+#link-strava {
+  margin: 0 20px 0 auto;
+}
+
+.activity-stat {
+  font-weight: bold;
+}
+
+#type-select {
+  width: 80px;
+}
+
+#early {
+  display: none;
+}
+
+#all {
+  display: none;
 }
