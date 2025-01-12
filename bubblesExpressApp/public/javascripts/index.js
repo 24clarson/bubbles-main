@@ -18,6 +18,7 @@ yearSelect.addEventListener('click', (event) => {
             item.style.fontWeight = "normal";
         }
         event.target.style.fontWeight = "bold";
+        requestActivitiesDB();
         renderCalendar(parseInt(yearValue));
     }
 });
@@ -27,7 +28,8 @@ typeSelect.addEventListener('change', () => {
 })
 
 // Initial render
-renderCalendar(currentYear);
+requestActivitiesDB()
+renderCalendar(yearValue);
 
 function renderCalendar(year) {
 
