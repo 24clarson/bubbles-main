@@ -62,6 +62,7 @@ async function fetchAccessToken(info) {
 }
 
 const dbpw = process.env.db_password;
+const uri = `mongodb+srv://cedarlarson:${dbpw}@bubbles.qn6sb.mongodb.net/?retryWrites=true&w=majority&appName=Bubbles`;
 let client;
 const dbName = process.env.db_name;
 
