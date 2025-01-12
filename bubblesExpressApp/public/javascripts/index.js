@@ -244,9 +244,9 @@ function processActivities(acts) {
 ---------------------------*/
 
 const clientId = '144350';
-const redirectUriAll = 'http://localhost:3000/?timeframe=all';
-const redirectUriRecent = 'http://localhost:3000/?timeframe=recent';
-const redirectUriEarly = 'http://localhost:3000/?timeframe=early';
+const redirectUriAll = 'https://bubbles-vyp2.onrender.com/?timeframe=all';
+const redirectUriRecent = 'https://bubbles-vyp2.onrender.com/?timeframe=recent';
+const redirectUriEarly = 'https://bubbles-vyp2.onrender.com/?timeframe=early';
 const authUrlAll = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriAll}&scope=activity:read_all,read_all&approval_prompt=auto`;
 const authUrlRecent = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriRecent}&scope=activity:read_all,read_all&approval_prompt=auto`;
 const authUrlEarly = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriEarly}&scope=activity:read_all,read_all&approval_prompt=auto`;
@@ -258,7 +258,7 @@ document.getElementById('early').href = authUrlEarly;
 pickDate = document.getElementById('pick-date');
 pickDate.addEventListener('change', () => {
     const spec = document.getElementById('specific');
-    const redirectUriSpecific = `http://localhost:3000/?timeframe=${pickDate.value}`;
+    const redirectUriSpecific = `https://bubbles-vyp2.onrender.com/?timeframe=${pickDate.value}`;
     const authUrlSpecific = `https://www.strava.com/oauth/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUriSpecific}&scope=activity:read_all,read_all&approval_prompt=auto`;
     spec.href = authUrlSpecific;
     
