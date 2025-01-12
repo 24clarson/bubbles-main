@@ -192,7 +192,7 @@ function makeBubble(act) {
             content.appendChild(stat);
         }
         const descr = document.createElement("p");
-        descr.textContent += `${act.description}`;
+        descr.textContent += `${act.description||""}`;
         content.appendChild(descr);
     });
     container.addEventListener('mouseout', () => {
